@@ -1,0 +1,17 @@
+from playsound import playsound
+import time
+import threading
+
+def play_loop(sound_file, stop_flag):
+    stime=time.time()
+    while not stop_flag.is_set() and time.time()-stime < duration:
+        playsound(sound_file)
+        time.sleep(0.5) 
+stop_flag = threading.Event()
+duration=int(input("Enter the duration(in seconds):"))
+sound_thread = threading.Thread(target=play_loop, args=("C:\\Users\\avane\\Desktop\\Codes\\Song player\\Songs.mp3", stop_flag))
+sound_thread.start()
+timer=threading.Timer(duration,stop_flag.set)
+timer.start()
+sound_thread.join()
+print("loop stopped")
