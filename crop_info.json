@@ -1,0 +1,37 @@
+[
+  {
+    "CROP TYPE": "Paddy(rice)",
+    "MAJOR PESTS": "Stemborer, leaf folders, Plant hoppers, mealy bugs, Gall midge",
+    "Frequency they hate": "5kHz-20kHz",
+    "Weather Conditions": "Temperature: 20-35 degree C, Humidity level: Above 70%, pH level: 5-7",
+    "Geological location": "Low-lying areas, Alluvial Plains, Monsoon climate, Tropical region"
+  },
+  {
+    "CROP TYPE": "Wheat",
+    "MAJOR PESTS": "Wheat midges, Hessian fly, Thrips, Aphids, Wireworms",
+    "Frequency they hate": "5Hz-20Hz",
+    "Weather Conditions": "Temperature: 15-30 degree C, Humidity Level: 60-80%, pH level: 6-7.5",
+    "Geological location": "Longer day lengths, cooler temperatures, fertile soils, mountainous region"
+  },
+  {
+    "CROP TYPE": "Maize",
+    "MAJOR PESTS": "Stem borers, armyworms, grain moths, Corn earworms, Weevil",
+    "Frequency they hate": "5kHz-20kHz",
+    "Weather Conditions": "Temperature: 20-35 degree C, Humidity level: 50-70%, pH level: 6-7.5",
+    "Geological location": "Warm temperature, moisture availability, adequate sunshine"
+  },
+  {
+    "CROP TYPE": "Tea",
+    "MAJOR PESTS": "Leaf eating caterpillars, tea mosquito bug, thrips, Tea Totrix, Tea Red spider mite, Whitefly, Aphids, Armyworms, Pink Bollworm, Boll Weevil",
+    "Frequency they hate": "20kHz-100kHz",
+    "Weather Conditions": "Temperature: 20-30 degree C, Humidity level: Above 70% (for thrips it's 50-80%), pH level: 5.5-6.5",
+    "Geological location": "Tropical climate, Altitude (500-2000 meters), Rainfall"
+  },
+  {
+    "CROP TYPE": "Cotton",
+    "MAJOR PESTS": "Bollworms (American bollworm, Pink bollworm, Spotted bollworms), Aphids, Thrips, Whiteflies, Mealybugs",
+    "Frequency they hate": "5Hz-20Hz",
+    "Weather Conditions": "Temperature: 20-30 degree C, Humidity level: 50-60%, pH level: 5.8-7",
+    "Geological location": "Warm climate, Sunlight, minimal salinity, adequate water supply"
+  }
+]
