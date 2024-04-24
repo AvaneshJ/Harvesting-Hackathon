@@ -46,7 +46,7 @@ We welcome contributions from the community to improve our Ultrasound Pest Repel
 
 ## Credits
 
-This project was created by Swastik Misra, Aditya Mazumder and Avanesh Joshi as part of the Harvesting Hackathon 2024.
+This project was created by Swastik Mishra, Aditya Mazumder and Avanesh Joshi as part of the Harvesting Hackathon 2024.
 
 ## License
 
