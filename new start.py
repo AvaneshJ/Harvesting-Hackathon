@@ -7,7 +7,7 @@ from tkinter import ttk
 from ttkthemes import themed_tk
 from PIL import Image, ImageTk
 from tkinter import filedialog
-from mutagen.mp3 import MP3
+from mutagen.mp3 import MP3 # type: ignore
 import os
 import time
 import pygame
