@@ -11,6 +11,7 @@ import datetime
 import time
 import tkinter as tk
 import pygame
+from tkinter import filedialog
 
 
 
@@ -39,47 +40,120 @@ frame1.place(x=0,y=0)
 name = customtkinter.CTkLabel(home,text="Tech Veda" ,fg_color="#363538", text_color="#EEEDF4",  font=("Arial Rounded MT Bold",20),width=200,height=40)
 name.place(x=550,y=0)
 
+# # Create a transparent image
+# transparent_img = Image.new("RGBA", (300, 200), (0, 0, 0, 0))
+# # Convert the transparent image to Tkinter format
+# transparent_tk_img = ImageTk.PhotoImage(transparent_img)
+
 
 light_theme_image = ImageTk.PhotoImage(Image.open("light_theme_image.png"))
 
-
+# home_frame = customtkinter.CTkFrame(home,width=1000,height=600,border_width=0,border_color="#016008",fg_color="black")
+# home_frame.place(x=250,y=100)
 
 
 
 #####Drop Down Box ####################
 
-# myLabel = Label(home,text="Select the type of Insect " ,  font=("arial",30,"bold"), bg = "#E1E8E2").place(x= 550 ,  y = 100)
+myLabel = Label(home,text="Select the type of Insect "  , font=("arial",20,"bold"), bg = "#E1E8E2").place(x= 200 ,  y = 100)
 
 
 
-# clicked = StringVar()
-# clicked.set("Select the type of Insect")
+clicked = StringVar()
+clicked.set("Select the type of Insect")
 
-# def music(event) :
-    # music_label = Label(home, text = clicked.get() , font = 20).place(x = 600, y = 225)
-    # if clicked.get() == "Caterpillar" :
-    #     music_label = Label(home, text = "play catterpillar song   ",font=20 , bg = "#E1E8E2").place(x = 675, y = 225)
-    # if clicked.get() == "Grasshopper" :
-    #     music_label = Label(home, text = "play grasshopper song",font=20 , bg = "#E1E8E2").place(x = 675, y = 225)
-    # if clicked.get() == "Locust     " :
-    #     music_label = Label(home, text = "play locust song          ",font=20 ,bg = "#E1E8E2").place(x = 675, y = 225)
+def music(event) :
+    music_label = Label(home, text = clicked.get() , font = 20).place(x = 200, y = 225)
+    if clicked.get() == "Caterpillar" :
+        music_label = Label(home, text = "play catterpillar song   ",font=20 , bg = "#E1E8E2").place(x = 275, y = 225)
+    if clicked.get() == "Grasshopper" :
+        music_label = Label(home, text = "play grasshopper song",font=20 , bg = "#E1E8E2").place(x = 275, y = 225)
+    if clicked.get() == "Locust     " :
+        music_label = Label(home, text = "play locust song          ",font=20 ,bg = "#E1E8E2").place(x = 275, y = 225)
 
 
         
 
-# options = [
-#     "Caterpillar",
-#     "Locust     ",
-#     "Grasshopper"
-# ]
+options = [
+    "Caterpillar",
+    "Locust     ",
+    "Grasshopper"
+]
 
 
-# drop = OptionMenu(home,clicked, *options  , command=music)
-# drop.config(width=50 , height = 2 )
-# drop.place(x= 600 ,  y = 175)
+drop = OptionMenu(home,clicked, *options  , command=music)
+drop.config(width=45 , height = 2 )
+drop.place(x= 200 ,  y = 175)
 
-# sound = Button(home,text = 'Get music from avanesh and figure out how to add the sound to this button ' , command=music)
-# sound.place(x = 1000 , y = 175)
+
+
+
+# drop down for frequency
+
+myLabel2 = Label(home,text="Select the frequency " ,  font=("arial",20,"bold"), bg = "#E1E8E2").place(x= 750 ,  y = 100)
+
+
+
+clicked = StringVar()
+clicked.set("Select the Frequency")
+
+def music(event) :
+    music_label = Label(home, text = clicked.get() , font = 20).place(x = 775, y = 225)
+    if clicked.get() == "Caterpillar" :
+        music_label = Label(home, text = "50 kHz   ",font=20 , bg = "#E1E8E2").place(x = 850, y = 225)
+    if clicked.get() == "Grasshopper" :
+        music_label = Label(home, text = "100 kHz   ",font=20 , bg = "#E1E8E2").place(x = 850, y = 225)
+    if clicked.get() == "Locust     " :
+        music_label = Label(home, text = "200 kHz          ",font=20 ,bg = "#E1E8E2").place(x = 850, y = 225)
+
+
+        
+
+options = [
+    "50 kHz      ",
+    "100 kHz     ",
+    "200 kHz     ",
+]
+
+
+drop = OptionMenu(home,clicked, *options  , command=music)
+drop.config(width=45 , height = 2 )
+drop.place(x= 750,  y = 175)
+
+
+
+# Drop Down for duration
+
+myLabel3 = Label(home,text="Select the Duration " ,  font=("arial",20,"bold"), bg = "#E1E8E2").place(x= 200 ,  y = 300)
+
+
+
+clicked = StringVar()
+clicked.set("Select the duration")
+
+def music(event) :
+    music_label = Label(home, text = clicked.get() , font = 20).place(x = 200, y = 400)
+    if clicked.get() == "1 minute" :
+        music_label = Label(home, text = "play catterpillar song   ",font=20 , bg = "#E1E8E2").place(x = 275, y = 400)
+    if clicked.get() == "1/2 hour" :
+        music_label = Label(home, text = "play grasshopper song",font=20 , bg = "#E1E8E2").place(x = 275, y = 400)
+    if clicked.get() == "1 hour     " :
+        music_label = Label(home, text = "play locust song          ",font=20 ,bg = "#E1E8E2").place(x = 275, y = 400)
+
+
+        
+
+options = [
+    "1 minute       ",
+    "1/2 hour       ",
+    "1 hour         "
+]
+
+
+drop = OptionMenu(home,clicked, *options  , command=music)
+drop.config(width=40 , height = 2 )
+drop.place(x= 200 ,  y = 375)
+
 
 
 
@@ -101,6 +175,118 @@ light_theme_image = ImageTk.PhotoImage(Image.open("light_theme_image.png"))
 # user_icon = ImageTk.PhotoImage(Image.open("gh2.png"))
 # my_label = Label(image = user_icon)
 # my_label.place(x=5 , y=75)
+
+# function for home page
+def home_page():
+    home_frame = customtkinter.CTkFrame(home,width=1000,height=600,border_width=0,border_color="#016008",fg_color="black")
+    home_frame.place(x=200,y=78) 
+
+    home_label = customtkinter.CTkLabel(home_frame,text="Home" ,font=("Helvatica",30,"bold"),fg_color="#36CA03",text_color="black",width=1000,height=50,bg_color="#363538")
+    home_label.place(x=0,y=0)
+
+        #####Drop Down Box ####################
+
+    myLabel = Label(home_frame,text="Select the type of Insect "  , font=("arial",20,"bold"), bg = "#E1E8E2").place(x= 200 ,  y = 100)
+
+
+
+    clicked = StringVar()
+    clicked.set("Select the type of Insect")
+
+    def music(event) :
+        music_label = Label(home_frame, text = clicked.get() , font = 20).place(x = 200, y = 225)
+        if clicked.get() == "Caterpillar" :
+            music_label = Label(home_frame, text = "play catterpillar song   ",font=20 , bg = "#E1E8E2").place(x = 275, y = 225)
+        if clicked.get() == "Grasshopper" :
+            music_label = Label(home_frame, text = "play grasshopper song",font=20 , bg = "#E1E8E2").place(x = 275, y = 225)
+        if clicked.get() == "Locust     " :
+            music_label = Label(home_frame, text = "play locust song          ",font=20 ,bg = "#E1E8E2").place(x = 275, y = 225)
+
+
+            
+
+    options = [
+        "Caterpillar",
+        "Locust     ",
+        "Grasshopper"
+    ]
+
+
+    drop = OptionMenu(home_frame,clicked, *options  , command=music)
+    drop.config(width=45 , height = 2 )
+    drop.place(x= 200 ,  y = 175)
+
+
+
+
+    # drop down for frequency
+
+    myLabel2 = Label(home_frame,text="Select the frequency " ,  font=("arial",20,"bold"), bg = "#E1E8E2").place(x= 750 ,  y = 100)
+
+
+
+    clicked = StringVar()
+    clicked.set("Select the Frequency")
+
+    def music(event) :
+        music_label = Label(home_frame, text = clicked.get() , font = 20).place(x = 775, y = 225)
+        if clicked.get() == "Caterpillar" :
+            music_label = Label(home_frame, text = "50 kHz   ",font=20 , bg = "#E1E8E2").place(x = 850, y = 225)
+        if clicked.get() == "Grasshopper" :
+            music_label = Label(home_frame, text = "100 kHz   ",font=20 , bg = "#E1E8E2").place(x = 850, y = 225)
+        if clicked.get() == "Locust     " :
+            music_label = Label(home_frame, text = "200 kHz          ",font=20 ,bg = "#E1E8E2").place(x = 850, y = 225)
+
+
+            
+
+    options = [
+        "50 kHz      ",
+        "100 kHz     ",
+        "200 kHz     ",
+    ]
+
+
+    drop = OptionMenu(home_frame,clicked, *options  , command=music)
+    drop.config(width=45 , height = 2 )
+    drop.place(x= 750,  y = 175)
+
+
+
+    # Drop Down for duration
+
+    myLabel3 = Label(home_frame,text="Select the Duration " ,  font=("arial",20,"bold"), bg = "#E1E8E2").place(x= 200 ,  y = 300)
+
+
+
+    clicked = StringVar()
+    clicked.set("Select the duration")
+
+    def music(event) :
+        music_label = Label(home_frame, text = clicked.get() , font = 20).place(x = 200, y = 400)
+        if clicked.get() == "1 minute" :
+            music_label = Label(home_frame, text = "play catterpillar song   ",font=20 , bg = "#E1E8E2").place(x = 275, y = 400)
+        if clicked.get() == "1/2 hour" :
+            music_label = Label(home_frame, text = "play grasshopper song",font=20 , bg = "#E1E8E2").place(x = 275, y = 400)
+        if clicked.get() == "1 hour     " :
+            music_label = Label(home_frame, text = "play locust song          ",font=20 ,bg = "#E1E8E2").place(x = 275, y = 400)
+
+
+            
+
+    options = [
+        "1 minute       ",
+        "1/2 hour       ",
+        "1 hour         "
+    ]
+
+
+    drop = OptionMenu(home_frame,clicked, *options  , command=music)
+    drop.config(width=40 , height = 2 )
+    drop.place(x= 200 ,  y = 375)
+   
+
+    
 
 
 # function for chat page
@@ -229,7 +415,7 @@ def toggle_menu():
     toggle_mn_frame = customtkinter.CTkFrame(master=home,width=200,height=window_height,border_width=0,border_color="#808080",fg_color="#363538")
     toggle_mn_frame.place(x=0,y=78)
 
-    home_button = customtkinter.CTkButton(toggle_mn_frame,text="Home",width=200,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538")
+    home_button = customtkinter.CTkButton(toggle_mn_frame,text="Home",width=200,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command = home_page)
     home_button.place(x=0,y=50)
     home_indicator = customtkinter.CTkLabel(toggle_mn_frame,text="" ,fg_color="#363538",width=5,height=40,bg_color="#363538")
     home_indicator.place(x=0,y=50)
@@ -271,8 +457,185 @@ def toggle_menu():
 
 
 
-frame2 = customtkinter.CTkFrame(master=home,width=1500,height=45,border_width=1,border_color="#808080",fg_color="#363538")
+frame2 = customtkinter.CTkFrame(master=home,width=1500,height=45,border_width=0,border_color="#808080",fg_color="#363538")
 frame2.place(x=0,y=33)
+
+# code for multiple tabs in top frame
+
+def home_page():
+    home_frame = customtkinter.CTkFrame(home,width=1000,height=600,border_width=0,border_color="#016008",fg_color="black")
+    home_frame.place(x=200,y=78) 
+
+    home_label = customtkinter.CTkLabel(home_frame,text="Home" ,font=("Helvatica",30,"bold"),fg_color="#36CA03",text_color="black",width=1000,height=50,bg_color="#363538")
+    home_label.place(x=0,y=0)
+
+        #####Drop Down Box ####################
+
+    myLabel = Label(home_frame,text="Select the type of Insect "  , font=("arial",20,"bold"), bg = "#E1E8E2").place(x= 0 ,  y = 100)
+
+
+
+    clicked = StringVar()
+    clicked.set("Select the type of Insect")
+
+    def music(event) :
+        music_label = Label(home_frame, text = clicked.get() , font = 20).place(x = 0, y = 225)
+        if clicked.get() == "Caterpillar" :
+            music_label = Label(home_frame, text = "play catterpillar song   ",font=20 , bg = "#E1E8E2").place(x = 0, y = 225)
+        if clicked.get() == "Grasshopper" :
+            music_label = Label(home_frame, text = "play grasshopper song",font=20 , bg = "#E1E8E2").place(x = 0, y = 225)
+        if clicked.get() == "Locust     " :
+            music_label = Label(home_frame, text = "play locust song          ",font=20 ,bg = "#E1E8E2").place(x = 0, y = 225)
+
+
+            
+
+    options = [
+        "Caterpillar",
+        "Locust     ",
+        "Grasshopper"
+    ]
+
+
+    drop = OptionMenu(home_frame,clicked, *options  , command=music)
+    drop.config(width=45 , height = 2 )
+    drop.place(x= 0 ,  y = 175)
+
+
+
+
+    # drop down for frequency
+
+    myLabel2 = Label(home_frame,text="Select the frequency " ,  font=("arial",20,"bold"), bg = "#E1E8E2").place(x= 550 ,  y = 100)
+
+
+
+    clicked = StringVar()
+    clicked.set("Select the Frequency")
+
+    def music(event) :
+        music_label = Label(home_frame, text = clicked.get() , font = 20).place(x = 475, y = 225)
+        if clicked.get() == "Caterpillar" :
+            music_label = Label(home_frame, text = "50 kHz   ",font=20 , bg = "#E1E8E2").place(x = 550, y = 225)
+        if clicked.get() == "Grasshopper" :
+            music_label = Label(home_frame, text = "100 kHz   ",font=20 , bg = "#E1E8E2").place(x = 550, y = 225)
+        if clicked.get() == "Locust     " :
+            music_label = Label(home_frame, text = "200 kHz          ",font=20 ,bg = "#E1E8E2").place(x = 550, y = 225)
+
+
+            
+
+    options = [
+        "50 kHz      ",
+        "100 kHz     ",
+        "200 kHz     ",
+    ]
+
+
+    drop = OptionMenu(home_frame,clicked, *options  , command=music)
+    drop.config(width=45 , height = 2 )
+    drop.place(x= 550,  y = 175)
+
+
+
+    # Drop Down for duration
+
+    myLabel3 = Label(home_frame,text="Select the Duration " ,  font=("arial",20,"bold"), bg = "#E1E8E2").place(x= 0 ,  y = 300)
+
+
+
+    clicked = StringVar()
+    clicked.set("Select the duration")
+
+    def music(event) :
+        music_label = Label(home_frame, text = clicked.get() , font = 20).place(x = 0, y = 400)
+        if clicked.get() == "1 minute" :
+            music_label = Label(home_frame, text = "play catterpillar song   ",font=20 , bg = "#E1E8E2").place(x = 0, y = 400)
+        if clicked.get() == "1/2 hour" :
+            music_label = Label(home_frame, text = "play grasshopper song",font=20 , bg = "#E1E8E2").place(x = 0, y = 400)
+        if clicked.get() == "1 hour     " :
+            music_label = Label(home_frame, text = "play locust song          ",font=20 ,bg = "#E1E8E2").place(x = 0, y = 400)
+
+
+            
+
+    options = [
+        "1 minute       ",
+        "1/2 hour       ",
+        "1 hour         "
+    ]
+
+
+    drop = OptionMenu(home_frame,clicked, *options  , command=music)
+    drop.config(width=40 , height = 2 )
+    drop.place(x= 0 ,  y = 375)
+
+    # submit button
+
+    submit_btn = customtkinter.CTkButton(home_frame,text="submit",width=100,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538")
+    submit_btn.place(x=750,y=400)
+
+
+
+
+# function for chat tab
+def chat_page():
+    chat_frame = customtkinter.CTkFrame(home,width=1000,height=600,border_width=0,border_color="#016008",fg_color="black")
+    chat_frame.place(x=200,y=100) 
+
+    chat_label = customtkinter.CTkLabel(home,text="Chat-Bot" ,font=("Helvatica",30,"bold"),fg_color="#36CA03",text_color="black",width=1000,height=50,bg_color="#363538")
+    chat_label.place(x=200,y=78)
+
+    
+
+    def start():
+    # Start chat
+        txt = customtkinter.CTkTextbox(chat_frame, width=1000, height=600)
+        txt.place(x=0, y=0)
+        txt.insert(tk.END, "\n" )
+        entry = customtkinter.CTkEntry(chat_frame, placeholder_text="Hello User ! Please Enter a message", width=950,height=50)
+        entry.place(x=0, y=510)
+        main_button_1 = customtkinter.CTkButton(chat_frame, text="Send", fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), width=95,height=50, command=lambda: Text(txt, entry)).place(x=905, y=510)
+
+    def Text(txt, entry):
+        # Process user input
+        txt.configure(state="normal")
+        text = entry.get()
+        txt.insert(tk.END, "\n" + text)
+        txt.configure(state="disabled")
+        entry.delete(0, 'end')
+        threading.Thread(target=chatting, args=(text,)).start()
+
+    def chatting(text):
+        # Placeholder function for your chat functionality
+        print("Received message:", text)
+
+    start()
+    start.place(x=0,y=0)
+
+
+
+
+
+
+
+
+
+
+home_btn = customtkinter.CTkButton(frame2,text="Home",width=100,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=home_page)
+home_btn.place(x=200)
+
+chat_btn = customtkinter.CTkButton(frame2,text="Chat-Bot",width=100,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=chat_page)
+chat_btn.place(x=450)
+
+about_btn = customtkinter.CTkButton(frame2,text="About Us",width=100,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538")
+about_btn.place(x=700)
+
+contact_btn = customtkinter.CTkButton(frame2,text="Contact Us",width=100,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538")
+contact_btn.place(x=950)
+
+
+
 all = customtkinter.CTkLabel(home,text="All" ,fg_color="#363538", text_color="#EEEDF4",  font=("Arial Rounded MT Bold",20),width=100,height=40)
 all.place(x=20,y=35)
 
@@ -301,3 +664,9 @@ toggle_button.place(x=0,y=35)
 
 
 home.mainloop()
+
+       
+       
+
+
+
