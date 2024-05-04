@@ -39,16 +39,59 @@ frame1.place(x=0,y=0)
 name = customtkinter.CTkLabel(home,text="Tech Veda" ,fg_color="#363538", text_color="#EEEDF4",  font=("Arial Rounded MT Bold",20),width=200,height=40)
 name.place(x=550,y=0)
 
-# # Create a transparent image
-# transparent_img = Image.new("RGBA", (300, 200), (0, 0, 0, 0))
-# # Convert the transparent image to Tkinter format
-# transparent_tk_img = ImageTk.PhotoImage(transparent_img)
+#  function for playing and pausing song
+def play_song(song_path, duration_minutes):
+    pygame.mixer.init()
+    if not os.path.exists(song_path):
+        print("Error", f"Song file '{song_path}' not found.")
+        return
+
+    pygame.mixer.music.load(song_path)
+    pygame.mixer.music.play()
+
+    # Calculate duration in seconds
+    duration_seconds = duration_minutes * 60
+
+    # Wait for the specified duration while checking if the song is still playing
+    start_time = pygame.time.get_ticks() / 1000  # Get current time in seconds
+    while pygame.mixer.music.get_busy() and (pygame.time.get_ticks() / 1000 - start_time) < duration_seconds:
+        pygame.time.Clock().tick(10)  # Adjust tick rate to control the loop frequency
+
+    pygame.mixer.music.stop()
+
+clicked_frequency = StringVar()
+# clicked_frequency.set(song_paths[1])
 
 
 
-# home_frame = customtkinter.CTkFrame(home,width=1000,height=600,border_width=0,border_color="#016008",fg_color="black")
-# home_frame.place(x=250,y=100)
 
+def play():
+    song_path = clicked_frequency.get().strip()  # Get the selected song path
+    duration_text= clicked.get().strip()
+    if song_path and duration_text:  # Ensure a valid song path is selected
+        try:
+            duration_minute=int(duration_text.split()[0])
+            threading.Thread(target=play_song,args=(song_path,duration_minute),daemon=True).start()
+        except ValueError:
+            print("Error","Invalid")
+def pause():
+    pygame.mixer.music.pause()
+
+
+
+
+
+
+
+
+
+
+# submit button
+
+play_btn = customtkinter.CTkButton(home,text="Play",width=100,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=play)
+play_btn.place(x=650,y=500)
+pause_btn = customtkinter.CTkButton(home, text="Pause", width=100, height=40, border_width=0, border_spacing=0, font=("Helvetica", 20), fg_color="#363538", command=pause)
+pause_btn.place(x=350, y=500)
 
 
 #####Drop Down Box ####################
@@ -60,14 +103,14 @@ myLabel = Label(home,text="Select the type of Insect "  , font=("arial",20,"bold
 clicked = StringVar()
 clicked.set("Select the type of Insect")
 
-def music(event) :
-    music_label = Label(home, text = clicked.get() , font = 20).place(x = 200, y = 225)
-    if clicked.get() == "Caterpillar" :
-        music_label = Label(home, text = "play catterpillar song   ",font=20 , bg = "#E1E8E2").place(x = 275, y = 225)
-    if clicked.get() == "Grasshopper" :
-        music_label = Label(home, text = "play grasshopper song",font=20 , bg = "#E1E8E2").place(x = 275, y = 225)
-    if clicked.get() == "Locust     " :
-        music_label = Label(home, text = "play locust song          ",font=20 ,bg = "#E1E8E2").place(x = 275, y = 225)
+# def music(event) :
+#     music_label = Label(home, text = clicked.get() , font = 20).place(x = 200, y = 225)
+#     if clicked.get() == "Caterpillar" :
+#         music_label = Label(home, text = "play catterpillar song   ",font=20 , bg = "#E1E8E2").place(x = 275, y = 225)
+#     if clicked.get() == "Grasshopper" :
+#         music_label = Label(home, text = "play grasshopper song",font=20 , bg = "#E1E8E2").place(x = 275, y = 225)
+#     if clicked.get() == "Locust     " :
+#         music_label = Label(home, text = "play locust song          ",font=20 ,bg = "#E1E8E2").place(x = 275, y = 225)
 
 
         
@@ -79,7 +122,7 @@ options = [
 ]
 
 
-drop = OptionMenu(home,clicked, *options  , command=music)
+drop = OptionMenu(home,clicked, *options  )
 drop.config(width=45 , height = 2 )
 drop.place(x= 200 ,  y = 175)
 
@@ -95,14 +138,14 @@ myLabel2 = Label(home,text="Select the frequency " ,  font=("arial",20,"bold"), 
 clicked = StringVar()
 clicked.set("Select the Frequency")
 
-def music(event) :
-    music_label = Label(home, text = clicked.get() , font = 20).place(x = 775, y = 225)
-    if clicked.get() == "Caterpillar" :
-        music_label = Label(home, text = "50 kHz   ",font=20 , bg = "#E1E8E2").place(x = 850, y = 225)
-    if clicked.get() == "Grasshopper" :
-        music_label = Label(home, text = "100 kHz   ",font=20 , bg = "#E1E8E2").place(x = 850, y = 225)
-    if clicked.get() == "Locust     " :
-        music_label = Label(home, text = "200 kHz          ",font=20 ,bg = "#E1E8E2").place(x = 850, y = 225)
+# def music(event) :
+#     music_label = Label(home, text = clicked.get() , font = 20).place(x = 775, y = 225)
+#     if clicked.get() == "Caterpillar" :
+#         music_label = Label(home, text = "50 kHz   ",font=20 , bg = "#E1E8E2").place(x = 850, y = 225)
+#     if clicked.get() == "Grasshopper" :
+#         music_label = Label(home, text = "100 kHz   ",font=20 , bg = "#E1E8E2").place(x = 850, y = 225)
+#     if clicked.get() == "Locust     " :
+#         music_label = Label(home, text = "200 kHz          ",font=20 ,bg = "#E1E8E2").place(x = 850, y = 225)
 
 
         
@@ -114,7 +157,7 @@ options = [
 ]
 
 
-drop = OptionMenu(home,clicked, *options  , command=music)
+drop = OptionMenu(home,clicked, *options  )
 drop.config(width=45 , height = 2 )
 drop.place(x= 750,  y = 175)
 
@@ -129,14 +172,14 @@ myLabel3 = Label(home,text="Select the Duration " ,  font=("arial",20,"bold"), b
 clicked = StringVar()
 clicked.set("Select the duration")
 
-def music(event) :
-    music_label = Label(home, text = clicked.get() , font = 20).place(x = 200, y = 400)
-    if clicked.get() == "1 minute" :
-        music_label = Label(home, text = "play catterpillar song   ",font=20 , bg = "#E1E8E2").place(x = 275, y = 400)
-    if clicked.get() == "1/2 hour" :
-        music_label = Label(home, text = "play grasshopper song",font=20 , bg = "#E1E8E2").place(x = 275, y = 400)
-    if clicked.get() == "1 hour     " :
-        music_label = Label(home, text = "play locust song          ",font=20 ,bg = "#E1E8E2").place(x = 275, y = 400)
+# def music(event) :
+#     music_label = Label(home, text = clicked.get() , font = 20).place(x = 200, y = 400)
+#     if clicked.get() == "1 minute" :
+#         music_label = Label(home, text = "play catterpillar song   ",font=20 , bg = "#E1E8E2").place(x = 275, y = 400)
+#     if clicked.get() == "1/2 hour" :
+#         music_label = Label(home, text = "play grasshopper song",font=20 , bg = "#E1E8E2").place(x = 275, y = 400)
+#     if clicked.get() == "1 hour     " :
+#         music_label = Label(home, text = "play locust song          ",font=20 ,bg = "#E1E8E2").place(x = 275, y = 400)
 
 
         
@@ -148,7 +191,7 @@ options = [
 ]
 
 
-drop = OptionMenu(home,clicked, *options  , command=music)
+drop = OptionMenu(home,clicked, *options  )
 drop.config(width=40 , height = 2 )
 drop.place(x= 200 ,  y = 375)
 
@@ -398,46 +441,46 @@ def contact_page():
 # toggle menu bar
 
 # function for toggle menu
-def toggle_menu():
+# def toggle_menu():
 
-    def collapse_toggle_menu():
-        toggle_mn_frame.destroy()
-        toggle_button = customtkinter.CTkButton(home,text="☰",width=50,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=toggle_menu)
-        toggle_button.place(x=0,y=35)
-##############################################################
+#     def collapse_toggle_menu():
+#         toggle_mn_frame.destroy()
+#         toggle_button = customtkinter.CTkButton(home,text="☰",width=50,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=toggle_menu)
+#         toggle_button.place(x=0,y=35)
+# ##############################################################
 
 
-    window_height = 700
+#     window_height = 700
 
-    toggle_mn_frame = customtkinter.CTkFrame(master=home,width=200,height=window_height,border_width=0,border_color="#808080",fg_color="#363538")
-    toggle_mn_frame.place(x=0,y=78)
+#     toggle_mn_frame = customtkinter.CTkFrame(master=home,width=200,height=window_height,border_width=0,border_color="#808080",fg_color="#363538")
+#     toggle_mn_frame.place(x=0,y=78)
 
-    home_button = customtkinter.CTkButton(toggle_mn_frame,text="Home",width=200,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command = home_page)
-    home_button.place(x=0,y=50)
-    home_indicator = customtkinter.CTkLabel(toggle_mn_frame,text="" ,fg_color="#363538",width=5,height=40,bg_color="#363538")
-    home_indicator.place(x=0,y=50)
-
-    
-    chat_button = customtkinter.CTkButton(toggle_mn_frame,text="Chat Bot",width=200,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=chat_page)
-    chat_button.place(x=0,y=150)
-    chat_indicator = customtkinter.CTkLabel(toggle_mn_frame,text="" ,fg_color="#363538",width=5,height=40,bg_color="#363538")
-    chat_indicator.place(x=0,y=150)
-    
-    
-    about_button = customtkinter.CTkButton(toggle_mn_frame,text="About Tech Veda",width=200,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=about_page)
-    about_button.place(x=0,y=250)
-    about_indicator = customtkinter.CTkLabel(toggle_mn_frame,text="" ,fg_color="#363538",width=5,height=40,bg_color="#363538")
-    about_indicator.place(x=0,y=250)
+#     home_button = customtkinter.CTkButton(toggle_mn_frame,text="Home",width=200,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command = home_page)
+#     home_button.place(x=0,y=50)
+#     home_indicator = customtkinter.CTkLabel(toggle_mn_frame,text="" ,fg_color="#363538",width=5,height=40,bg_color="#363538")
+#     home_indicator.place(x=0,y=50)
 
     
-    contact_button = customtkinter.CTkButton(toggle_mn_frame,text="Contact Us",width=200,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=contact_page)
-    contact_button.place(x=0,y=350)
-    contact_indicator = customtkinter.CTkLabel(toggle_mn_frame,text="" ,fg_color="#363538",width=5,height=40,bg_color="#363538")
-    contact_indicator.place(x=0,y=350)
+#     chat_button = customtkinter.CTkButton(toggle_mn_frame,text="Chat Bot",width=200,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=chat_page)
+#     chat_button.place(x=0,y=150)
+#     chat_indicator = customtkinter.CTkLabel(toggle_mn_frame,text="" ,fg_color="#363538",width=5,height=40,bg_color="#363538")
+#     chat_indicator.place(x=0,y=150)
+    
+    
+#     about_button = customtkinter.CTkButton(toggle_mn_frame,text="About Tech Veda",width=200,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=about_page)
+#     about_button.place(x=0,y=250)
+#     about_indicator = customtkinter.CTkLabel(toggle_mn_frame,text="" ,fg_color="#363538",width=5,height=40,bg_color="#363538")
+#     about_indicator.place(x=0,y=250)
+
+    
+#     contact_button = customtkinter.CTkButton(toggle_mn_frame,text="Contact Us",width=200,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=contact_page)
+#     contact_button.place(x=0,y=350)
+#     contact_indicator = customtkinter.CTkLabel(toggle_mn_frame,text="" ,fg_color="#363538",width=5,height=40,bg_color="#363538")
+#     contact_indicator.place(x=0,y=350)
 
 
-    toggle_button = customtkinter.CTkButton(home,text="X",width=50,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=collapse_toggle_menu)
-    toggle_button.place(x=0,y=35)
+#     toggle_button = customtkinter.CTkButton(home,text="X",width=50,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=collapse_toggle_menu)
+#     toggle_button.place(x=0,y=35)
 
 
 
@@ -477,6 +520,8 @@ def home_page():
 
     home_label = customtkinter.CTkLabel(home_frame,text="Home" ,font=("Helvatica",30,"bold"),fg_color="#36CA03",text_color="black",width=1000,height=50,bg_color="#363538")
     home_label.place(x=0,y=0)
+
+    
 
         #####Drop Down Box ####################
 
@@ -601,11 +646,6 @@ def chat_page():
 
 
 
-
-
-
-
-
 home_btn = customtkinter.CTkButton(frame2,text="Home",width=100,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=home_page)
 home_btn.place(x=200)
 
@@ -617,27 +657,6 @@ about_btn.place(x=700)
 
 contact_btn = customtkinter.CTkButton(frame2,text="Contact Us",width=100,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538")
 contact_btn.place(x=950)
-
-
-
-all = customtkinter.CTkLabel(home,text="All" ,fg_color="#363538", text_color="#EEEDF4",  font=("Arial Rounded MT Bold",20),width=100,height=40)
-all.place(x=20,y=35)
-
-toggle_button = customtkinter.CTkButton(home,text="☰",width=50,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=toggle_menu)
-toggle_button.place(x=0,y=35)
-
-
-
-
-
-
-###################### slider bar ########
-
-# volume = Label(home, text = "Volume " , font =("calibri(body)" , 15 , "bold"), bg = "#E1E8E2", width = 15 , height =2 )
-# volume.place(x = 650 , y = 300)
-
-# horizontal = Scale(home, from_ =0 , to = 100,  orient=HORIZONTAL)
-# horizontal.place(x = 700 , y = 350)
 
 
 
