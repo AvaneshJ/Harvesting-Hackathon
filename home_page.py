@@ -19,6 +19,8 @@ from tkinter import filedialog
 
 customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
+is_playing=False
+is_paused=False
 
 home= Tk()
 home.title("Home Page")
@@ -462,6 +464,25 @@ frame2.place(x=0,y=33)
 
 # code for multiple tabs in top frame
 
+def play_song(song_path, duration_minutes):
+    pygame.mixer.init()
+    if not os.path.exists(song_path):
+        print("Error", f"Song file '{song_path}' not found.")
+        return
+
+    pygame.mixer.music.load(song_path)
+    pygame.mixer.music.play()
+
+    # Calculate duration in seconds
+    duration_seconds = duration_minutes * 60
+
+    # Wait for the specified duration while checking if the song is still playing
+    start_time = pygame.time.get_ticks() / 1000  # Get current time in seconds
+    while pygame.mixer.music.get_busy() and (pygame.time.get_ticks() / 1000 - start_time) < duration_seconds:
+        pygame.time.Clock().tick(10)  # Adjust tick rate to control the loop frequency
+
+    pygame.mixer.music.stop()
+
 def home_page():
     home_frame = customtkinter.CTkFrame(home,width=1000,height=600,border_width=0,border_color="#016008",fg_color="black")
     home_frame.place(x=200,y=78) 
@@ -473,31 +494,18 @@ def home_page():
 
     myLabel = Label(home_frame,text="Select the type of Insect "  , font=("arial",20,"bold"), bg = "#E1E8E2").place(x= 0 ,  y = 100)
 
-
-
-    clicked = StringVar()
-    clicked.set("Select the type of Insect")
-
-    def music(event) :
-        music_label = Label(home_frame, text = clicked.get() , font = 20).place(x = 0, y = 225)
-        if clicked.get() == "Caterpillar" :
-            music_label = Label(home_frame, text = "play catterpillar song   ",font=20 , bg = "#E1E8E2").place(x = 0, y = 225)
-        if clicked.get() == "Grasshopper" :
-            music_label = Label(home_frame, text = "play grasshopper song",font=20 , bg = "#E1E8E2").place(x = 0, y = 225)
-        if clicked.get() == "Locust     " :
-            music_label = Label(home_frame, text = "play locust song          ",font=20 ,bg = "#E1E8E2").place(x = 0, y = 225)
-
-
-            
-
-    options = [
+    insects = ["",
         "Caterpillar",
         "Locust     ",
         "Grasshopper"
     ]
 
+    clicked_insect = StringVar()
+    clicked_insect.set(insects[1])
+            
 
-    drop = OptionMenu(home_frame,clicked, *options  , command=music)
+
+    drop = OptionMenu(home_frame,clicked_insect, *insects , command=music)
     drop.config(width=45 , height = 2 )
     drop.place(x= 0 ,  y = 175)
 
@@ -507,32 +515,18 @@ def home_page():
     # drop down for frequency
 
     myLabel2 = Label(home_frame,text="Select the frequency " ,  font=("arial",20,"bold"), bg = "#E1E8E2").place(x= 550 ,  y = 100)
-
-
-
-    clicked = StringVar()
-    clicked.set("Select the Frequency")
-
-    def music(event) :
-        music_label = Label(home_frame, text = clicked.get() , font = 20).place(x = 475, y = 225)
-        if clicked.get() == "Caterpillar" :
-            music_label = Label(home_frame, text = "50 kHz   ",font=20 , bg = "#E1E8E2").place(x = 550, y = 225)
-        if clicked.get() == "Grasshopper" :
-            music_label = Label(home_frame, text = "100 kHz   ",font=20 , bg = "#E1E8E2").place(x = 550, y = 225)
-        if clicked.get() == "Locust     " :
-            music_label = Label(home_frame, text = "200 kHz          ",font=20 ,bg = "#E1E8E2").place(x = 550, y = 225)
-
-
-            
-
-    options = [
-        "50 kHz      ",
-        "100 kHz     ",
-        "200 kHz     ",
+    song_paths = ["",
+        "20kHz.mp3    ",
+        "5kHz.mp3    ",
+        "20Hz.mp3    ",
     ]
 
 
-    drop = OptionMenu(home_frame,clicked, *options  , command=music)
+    clicked_frequency = StringVar()
+    clicked_frequency.set(song_paths[1])
+
+
+    drop = OptionMenu(home_frame,clicked_frequency, *song_paths  , command=music)
     drop.config(width=45 , height = 2 )
     drop.place(x= 550,  y = 175)
 
@@ -543,27 +537,27 @@ def home_page():
     myLabel3 = Label(home_frame,text="Select the Duration " ,  font=("arial",20,"bold"), bg = "#E1E8E2").place(x= 0 ,  y = 300)
 
 
-
-    clicked = StringVar()
-    clicked.set("Select the duration")
-
-    def music(event) :
-        music_label = Label(home_frame, text = clicked.get() , font = 20).place(x = 0, y = 400)
-        if clicked.get() == "1 minute" :
-            music_label = Label(home_frame, text = "play catterpillar song   ",font=20 , bg = "#E1E8E2").place(x = 0, y = 400)
-        if clicked.get() == "1/2 hour" :
-            music_label = Label(home_frame, text = "play grasshopper song",font=20 , bg = "#E1E8E2").place(x = 0, y = 400)
-        if clicked.get() == "1 hour     " :
-            music_label = Label(home_frame, text = "play locust song          ",font=20 ,bg = "#E1E8E2").place(x = 0, y = 400)
-
-
-            
-
-    options = [
-        "1 minute       ",
-        "1/2 hour       ",
-        "1 hour         "
+    options = ["",
+        "30 minutes       ",
+        "1 hour       ",
+        "2 hour         "
     ]
+    clicked = StringVar()
+    clicked.set(options[1])
+    def play():
+        song_path = clicked_frequency.get().strip()  # Get the selected song path
+        duration_text= clicked.get().strip()
+        if song_path and duration_text:  # Ensure a valid song path is selected
+            try:
+                duration_minute=int(duration_text.split()[0])
+                threading.Thread(target=play_song,args=(song_path,duration_minute),daemon=True).start()
+            except ValueError:
+                print("Error","Invalid")
+    def pause():
+            pygame.mixer.music.pause()
+    
+
+
 
 
     drop = OptionMenu(home_frame,clicked, *options  , command=music)
@@ -572,8 +566,10 @@ def home_page():
 
     # submit button
 
-    submit_btn = customtkinter.CTkButton(home_frame,text="submit",width=100,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538")
-    submit_btn.place(x=750,y=400)
+    play_btn = customtkinter.CTkButton(home_frame,text="Play",width=100,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=play)
+    play_btn.place(x=650,y=500)
+    pause_btn = customtkinter.CTkButton(home_frame, text="Pause", width=100, height=40, border_width=0, border_spacing=0, font=("Helvetica", 20), fg_color="#363538", command=pause)
+    pause_btn.place(x=350, y=500)
 
 
 
