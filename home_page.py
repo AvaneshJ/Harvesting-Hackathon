@@ -15,12 +15,13 @@ from tkinter import filedialog
 
 customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
-is_playing=False
-is_paused=False
+
 
 home= Tk()
 home.title("Home Page")
-home.geometry('1200x700+210+100')
+screen_width = home.winfo_screenwidth()
+screen_height = home.winfo_screenheight()
+home.geometry(f"{screen_width}x{screen_height}+0+0")
 
 background = ImageTk.PhotoImage(Image.open("jk.png"))
 bglabel = Label(home,image=background , width = 1400 , height = 700)
@@ -44,7 +45,6 @@ name.place(x=550,y=0)
 # transparent_tk_img = ImageTk.PhotoImage(transparent_img)
 
 
-light_theme_image = ImageTk.PhotoImage(Image.open("light_theme_image.png"))
 
 # home_frame = customtkinter.CTkFrame(home,width=1000,height=600,border_width=0,border_color="#016008",fg_color="black")
 # home_frame.place(x=250,y=100)
