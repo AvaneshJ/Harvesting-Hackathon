@@ -495,23 +495,15 @@ frame2.place(x=0,y=33)
 
 # code for multiple tabs in top frame
 
-def play_song(song_path, duration_minutes):
+def play_song(song_path, duration_seconds):
     pygame.mixer.init()
     if not os.path.exists(song_path):
         print("Error", f"Song file '{song_path}' not found.")
         return
 
     pygame.mixer.music.load(song_path)
-    pygame.mixer.music.play()
-
-    # Calculate duration in seconds
-    duration_seconds = duration_minutes * 60
-
-    # Wait for the specified duration while checking if the song is still playing
-    start_time = pygame.time.get_ticks() / 1000  # Get current time in seconds
-    while pygame.mixer.music.get_busy() and (pygame.time.get_ticks() / 1000 - start_time) < duration_seconds:
-        pygame.time.Clock().tick(10)  # Adjust tick rate to control the loop frequency
-
+    pygame.mixer.music.play(duration_seconds)
+    time.sleep(duration_seconds)
     pygame.mixer.music.stop()
 
 def home_page():
@@ -538,7 +530,7 @@ def home_page():
             
 
 
-    drop = OptionMenu(home_frame,clicked_insect, *insects , command=music)
+    drop = OptionMenu(home_frame,clicked_insect, *insects)
     drop.config(width=45 , height = 2 )
     drop.place(x= 0 ,  y = 175)
 
@@ -559,7 +551,7 @@ def home_page():
     clicked_frequency.set(song_paths[1])
 
 
-    drop = OptionMenu(home_frame,clicked_frequency, *song_paths  , command=music)
+    drop = OptionMenu(home_frame,clicked_frequency, *song_paths)
     drop.config(width=45 , height = 2 )
     drop.place(x= 550,  y = 175)
 
@@ -579,13 +571,16 @@ def home_page():
     clicked.set(options[1])
     def play():
         song_path = clicked_frequency.get().strip()  # Get the selected song path
-        duration_text= clicked.get().strip()
-        if song_path and duration_text:  # Ensure a valid song path is selected
-            try:
-                duration_minute=int(duration_text.split()[0])
-                threading.Thread(target=play_song,args=(song_path,duration_minute),daemon=True).start()
-            except ValueError:
-                print("Error","Invalid")
+        duration_choice= clicked.get().strip()
+        if duration_choice=="30 minutes":
+                duration_seconds=30*60
+        elif duration_choice=="1 hour":
+                duration_seconds=60*60
+        elif duration_choice=="2 hour":
+                duration_seconds==2*60*60
+        else:
+                return
+        threading.Thread(target=play_song,args=(song_path,duration_seconds),daemon=True).start()
     def pause():
             pygame.mixer.music.pause()
     
@@ -593,7 +588,7 @@ def home_page():
 
 
 
-    drop = OptionMenu(home_frame,clicked, *options  , command=music)
+    drop = OptionMenu(home_frame,clicked, *options)
     drop.config(width=40 , height = 2 )
     drop.place(x= 0 ,  y = 375)
 
