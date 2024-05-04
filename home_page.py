@@ -2,7 +2,6 @@ from tkinter import *
 from PIL import ImageTk,Image
 from tkinter import ttk
 import customtkinter
-from mutagen.mp3 import MP3
 import os
 import time
 import pygame
@@ -11,11 +10,8 @@ import datetime
 import time
 import tkinter as tk
 import pygame
+import Harvesting_chatbot as cb
 from tkinter import filedialog
-
-
-
-
 
 customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
@@ -296,35 +292,34 @@ def chat_page():
     chat_frame = customtkinter.CTkFrame(home,width=1000,height=600,border_width=0,border_color="#016008",fg_color="black")
     chat_frame.place(x=250,y=100) 
 
-    chat_label = customtkinter.CTkLabel(home,text="Chat-Bot" ,font=("Helvatica",30,"bold"),fg_color="#36CA03",text_color="black",width=1000,height=50,bg_color="#363538")
-    chat_label.place(x=250,y=78)
-
-    
+    customtkinter.CTkLabel(home,text="Chat-Bot" ,font=("Helvatica",30,"bold"),fg_color="#36CA03",text_color="black",width=1000,height=50,bg_color="#363538").place(x=250,y=78)
 
     def start():
     # Start chat
         txt = customtkinter.CTkTextbox(chat_frame, width=1000, height=600)
         txt.place(x=0, y=0)
-        txt.insert(tk.END, "\n" )
-        entry = customtkinter.CTkEntry(chat_frame, placeholder_text="Hello User ! Please Enter a message", width=950,height=50)
+        txt.insert(tk.END, "\n" + "Welcome to the Crop Information Chatbot!")
+        entry = customtkinter.CTkEntry(chat_frame, placeholder_text="Please Enter a message", width=950,height=50)
         entry.place(x=0, y=510)
-        main_button_1 = customtkinter.CTkButton(chat_frame, text="Send", fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), width=95,height=50, command=lambda: Text(txt, entry)).place(x=905, y=510)
+        customtkinter.CTkButton(chat_frame, text="Send", fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), width=95,height=50, command=lambda: chatting(txt,entry)).place(x=905, y=510)
 
-    def Text(txt, entry):
-        # Process user input
-        txt.configure(state="normal")
+    def chatting(txt,entry):
         text = entry.get()
-        txt.insert(tk.END, "\n" + text)
-        txt.configure(state="disabled")
-        entry.delete(0, 'end')
-        threading.Thread(target=chatting, args=(text,)).start()
-
-    def chatting(text):
-        # Placeholder function for your chat functionality
-        print("Received message:", text)
+        try:
+            if text.strip():  # Check if the input is not empty
+                chat = cb.generate_response(text)
+                print(chat)
+                txt.configure(state="normal")
+                txt.insert(tk.END,"\n" + text + "\n" + chat)
+                txt.configure(state="disabled")
+                entry.delete(0, 'end')
+        except Exception as e:
+            txt.configure(state="normal")
+            txt.insert(tk.END, "\n" + f"An error occurred: {e}")
+            txt.configure(state="disabled")
+            entry.delete(0, 'end')
 
     start()
-    start.place(x=0,y=0)
 
 # function for about page
 
