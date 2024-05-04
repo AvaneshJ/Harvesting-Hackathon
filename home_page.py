@@ -122,7 +122,7 @@ def chat_page():
                 chat = cb.generate_response(text)
                 print(chat)
                 txt.configure(state="normal")
-                txt.insert(tk.END, "\n" + chat)
+                txt.insert(tk.END,"\n" + text + "\n" + chat)
                 txt.configure(state="disabled")
                 entry.delete(0, 'end')
         except Exception as e:
