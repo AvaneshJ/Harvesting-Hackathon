@@ -439,14 +439,7 @@ def toggle_menu():
     toggle_button = customtkinter.CTkButton(home,text="X",width=50,height = 40,border_width=0,border_spacing=0,font=("Helvatica",20),fg_color="#363538",command=collapse_toggle_menu)
     toggle_button.place(x=0,y=35)
 
-    # change theme switch
 
-    # theme_label = Label(home,text="Light")
-    # theme_label.place(x=40,y=450)
-
-    # theme_btn = Button(home,image =light_theme_image,bd= 0,command = switch_theme('black'))
-    # theme_btn.place(x=50,y=475)
- 
 
 
 
